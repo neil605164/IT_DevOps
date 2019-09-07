@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  redis6379:
+    image: redis:alpine
+    container_name: Test_6379
+    restart: always
+    ports: 
+      - 6379:6379
+
+  redis-admin:
+    image: erikdubbelboer/phpredisadmin
+    container_name: redisAdminer
+    restart: always
+    ports:
+        - 8080:80
+    volumes: 
+      - ./config.inc.php:/src/app/includes/config.inc.php
