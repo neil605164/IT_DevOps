@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+  redis6379:
+    image: redis:alpine
+    container_name: Test_6379
+    restart: always
+    ports: 
+      - 6379:6379
+    # 指定使用那一條網路
+    networks:
+      - web_service
+
+# 表示服務用的網絡是用外部的網路，並且搜尋名稱為「web_service」 
+# 搜尋成成功後會自動與「redis」服務相連
+# 若搜尋失敗，則會顯示該錯誤
+# ERROR: Please create the network manually using `docker network create web_services` and try again.
+networks:
+  web_service:
+    external: true

@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+  redis-admin:
+    image: erikdubbelboer/phpredisadmin
+    container_name: redisAdminer
+    restart: always
+    ports:
+        - 8080:80
+    volumes: 
+      - ./config.inc.php:/src/app/includes/config.inc.php
+    # 指定使用那一條網路
+    networks:
+      - web_service
+
+# 表示服務用的網絡是用外部的網路，並且搜尋名稱為「web_service」 
+# 搜尋成成功後會自動與「redis-admin」服務相連
+# 若搜尋失敗，則會顯示該錯誤
+# ERROR: Please create the network manually using `docker network create web_services` and try again.
+networks:
+  web_service:
+    external: true
